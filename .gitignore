@@ -39,3 +39,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Docker copied stuff
+docker/senotype-editor/src
+
+
+# UI react-app
+src/pnpm-lock.yaml
+pnpm-lock.yaml
+
+/.secrets
