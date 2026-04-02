@@ -1,25 +1,34 @@
-import React from 'react';
-import { Tree } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Tree, Skeleton } from 'antd';
+import useLocalAPI from '@/hooks/useLocalAPI';
+import { Button } from 'react-bootstrap';
+import ENVS from '@/lib/envs';
 const { DirectoryTree } = Tree;
-const treeData = [
-  {
-    title: 'parent 0',
-    key: '0-0',
-    children: [
-      { title: 'leaf 0-0', key: '0-0-0', isLeaf: true },
-      { title: 'leaf 0-1', key: '0-0-1', isLeaf: true },
-    ],
-  },
-  {
-    title: 'parent 1',
-    key: '0-1',
-    children: [
-      { title: 'leaf 1-0', key: '0-1-0', isLeaf: true },
-      { title: 'leaf 1-1', key: '0-1-1', isLeaf: true },
-    ],
-  },
-];
+
+
+
 const EditorLibrary = () => {
+  const { results, loading } = useLocalAPI({ values: [] })
+  const [libraryData, setLibraryData] = useState(null)
+
+  useEffect(() => {
+    if (results) {
+      let res = []
+      for (const r of results.results) {
+        res.push(
+          {
+            title: r.senotypejson.senotype.name,
+            key: r.senotypeid,
+            children: [
+              { title: `Version 1 ${r.senotypeid}`, key: `${r.senotypeid}-leaf`, isLeaf: true },
+            ]
+          }
+        )
+      }
+      setLibraryData(res)
+    }
+  }, [results])
+
   const onSelect = (keys, info) => {
     console.log('Trigger Select', keys, info);
   };
@@ -27,15 +36,18 @@ const EditorLibrary = () => {
     console.log('Trigger Expand', keys, info);
   };
   return (
-    <div className='p-2 bg-white'>
-      <DirectoryTree
-      multiple
-      draggable
-      defaultExpandAll
-      onSelect={onSelect}
-      onExpand={onExpand}
-      treeData={treeData}
-    />
+    <div className='p-2 bg-white' style={{maxHeight: 500, overflowY: 'auto'}}>
+      <h2 className='h4 mx-3 mb-3'>{ENVS.app.name} Library</h2>
+      <div><Button className=' w-75 mx-3 mb-5 mt-3'>New</Button></div>
+      {loading && <Skeleton />}
+      {libraryData && <DirectoryTree
+        multiple
+        draggable
+        defaultExpandAll
+        onSelect={onSelect}
+        onExpand={onExpand}
+        treeData={libraryData}
+      />}
     </div>
   );
 };

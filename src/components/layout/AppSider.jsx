@@ -24,7 +24,7 @@ function AppSider({}) {
 
   return (
     <div>
-      <Sider breakpoint="lg" collapsedWidth="0" width={400}>
+      <Sider breakpoint="lg" collapsedWidth="0" width={'100%'}>
         <EditorLibrary />
             <Menu
               mode="inline"

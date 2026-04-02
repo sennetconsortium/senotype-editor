@@ -1,6 +1,4 @@
-export function getAuth() {
-  return 
-}
+
 
 export const fetchSearchAPIEntities = async (body, index = 'entities') => {
     const token = getAuth();

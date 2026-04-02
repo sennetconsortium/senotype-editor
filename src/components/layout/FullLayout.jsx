@@ -1,5 +1,5 @@
 import React from 'react';
-import { Breadcrumb, Layout, theme } from 'antd';
+import {  Layout, Splitter, theme } from 'antd';
 import AppNavBar from './AppNavBar';
 import AppFooter from './AppFooter';
 import { Container } from 'react-bootstrap';
@@ -14,11 +14,7 @@ const FullLayout = ({ children, sider }) => {
   return (
     <Layout style={THEME.layout.style}>
       <AppNavBar />
-      <Container>
-        <Breadcrumb
-          className='mt-3 mb-3'
-          items={[{ title: 'Home' }, { title: 'List' }, { title: 'App' }]}
-        />
+      <Container className='mt-5 mb-5'>
         <Layout
           style={{
             padding: '24px 0',
@@ -26,10 +22,16 @@ const FullLayout = ({ children, sider }) => {
             borderRadius: borderRadiusLG
           }}
         >
-          {!sider && <AppSider />}
-          <Content style={THEME.content.style}>
-            {children}
-          </Content>
+          <Splitter style={{ height: '100%', boxShadow: 'none' }}>
+            <Splitter.Panel defaultSize="40%" min="20%" max="70%">
+              {!sider && <AppSider />}
+            </Splitter.Panel>
+            <Splitter.Panel>
+              <Content style={THEME.content.style}>
+                {children}
+              </Content>
+            </Splitter.Panel>
+          </Splitter>
         </Layout>
       </Container>
       <AppFooter />
