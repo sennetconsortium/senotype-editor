@@ -1,20 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext, useRef } from 'react';
 import { Tree, Skeleton } from 'antd';
 import useLocalAPI from '@/hooks/useLocalAPI';
-import { Button, InputGroup, Form } from 'react-bootstrap';
+import { InputGroup, Form } from 'react-bootstrap';
 import ENVS from '@/lib/envs';
 const { DirectoryTree } = Tree;
-
-
+import log from 'xac-loglevel'
+import EditContext from '@/context/EditContext';
 
 const EditorLibrary = () => {
   const { results, loading } = useLocalAPI({ values: [] })
   const [libraryData, setLibraryData] = useState(null)
+  const {setSenotype} = useContext(EditContext)
+  const senotypeDict = useRef({})
 
   useEffect(() => {
     if (results) {
       let res = []
       for (const r of results.results) {
+        senotypeDict.current[r.senotypeid] = r
         res.push(
           {
             title: r.senotypejson.senotype.name,
@@ -30,10 +33,13 @@ const EditorLibrary = () => {
   }, [results])
 
   const onSelect = (keys, info) => {
-    console.log('Trigger Select', keys, info);
+    log.debug('Trigger Select', keys, info);
+    if (keys.length === 1) {
+      setSenotype(senotypeDict.current[keys[0]])
+    }
   };
   const onExpand = (keys, info) => {
-    console.log('Trigger Expand', keys, info);
+    log.debug('Trigger Expand', keys, info);
   };
   return (
     <div className='p-2' style={{maxHeight: 500, overflowY: 'auto'}}>

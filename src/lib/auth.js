@@ -14,4 +14,6 @@ const getAuth = async () => {
   return {}
 }
 
+export const getToken = async () => (await getAuth()).groups_token
+
 export default getAuth

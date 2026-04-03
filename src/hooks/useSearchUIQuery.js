@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { fetchSearchAPIEntities } from '@/lib/services'
+import  API  from '@/lib/api'
 
 /**
  * Hook to run a single Elasticsearch request using `fetchSearchAPIEntities`.
@@ -58,7 +58,7 @@ export default function useSearchUIQuery(index, body) {
             setError(null)
 
             try {
-                const res = await fetchSearchAPIEntities(body, index)
+                const res = await API.search(body, index)
                 if (cancelled || !mounted.current) {
                     return
                 }

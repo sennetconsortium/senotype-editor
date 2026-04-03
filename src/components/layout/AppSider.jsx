@@ -1,7 +1,6 @@
 import React from 'react';
 import { QuestionCircleOutlined, } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
-import AppContext from '@/context/AppContext';
 import EditorLibrary from '../EditorLibrary';
 const { Content, Sider } = Layout;
 import { Button } from 'react-bootstrap';

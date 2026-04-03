@@ -1,14 +1,16 @@
 'use client'
 import FullLayout from '@/components/layout/FullLayout'
-import React from 'react'
+import Senotype from '@/components/Senotype/Senotype'
+import { EditProvider } from '@/context/EditContext'
+
 
 function page() {
   return (
-    <div>
+    <EditProvider>
       <FullLayout>
-        Test
+        <Senotype />
       </FullLayout>
-    </div>
+    </EditProvider>
   )
 }
 
