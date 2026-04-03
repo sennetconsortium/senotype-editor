@@ -28,8 +28,8 @@ function AppSider({ }) {
   ]
 
   return (
-    <div>
-      <Sider className='mt-4 mx-4 container--card bg-white' breakpoint="lg" collapsedWidth="0" width={'100%'}>
+    <div className='c-appSider'>
+      <Sider className='mt-4 mb-4 container--card bg-white' breakpoint="lg" collapsedWidth="0" width={'100%'}>
         <EditorLibrary />
         <Menu
           mode="inline"

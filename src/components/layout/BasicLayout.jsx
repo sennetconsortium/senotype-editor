@@ -1,24 +1,20 @@
 import React from 'react';
-import { Layout} from 'antd';
 import AppNavBar from './AppNavBar';
 import AppFooter from './AppFooter';
 import { Container } from 'react-bootstrap';
-import THEME from '@/lib/theme';
-const { Content } = Layout;
-
 
 const BasicLayout = ({children}) => {
 
   return (
-    <Layout style={THEME.layout.style}>
+    <div className='bg--dirtyWhite'>
       <AppNavBar />
       <Container>
-        <Content style={THEME.content.style}>
-            {children}
-        </Content>
+        <main className='c-main container--card'>
+          {children}
+        </main>
       </Container>
       <AppFooter />
-    </Layout>
+    </div>
   );
 };
 export default BasicLayout;
