@@ -4,17 +4,14 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Image from "next/image";
-import { Layout } from 'antd';
 import ENVS from '@/lib/envs';
 import AppContext from '@/context/AppContext';
-
-const { Content, Sider } = Layout;
 
 function AppNavBar() {
   const {authInfo} = useContext(AppContext)
   return (
     <Navbar expand="lg" className="c-header" data-bs-theme="dark">
-      <Container>
+      <Container fluid>
         <Navbar.Brand href="/">
           <Image
               alt={ENVS.app.name}
@@ -32,7 +29,7 @@ function AppNavBar() {
           <Nav>
             {/* <Nav.Link href="#home">Home</Nav.Link> */}
             <NavDropdown title={authInfo.name} id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.3">{new Date().toLocaleDateString()}</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.3">Copy Globus Token</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="/logout">
                 Log out

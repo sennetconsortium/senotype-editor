@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Tree, Skeleton } from 'antd';
 import useLocalAPI from '@/hooks/useLocalAPI';
-import { Button } from 'react-bootstrap';
+import { Button, InputGroup, Form } from 'react-bootstrap';
 import ENVS from '@/lib/envs';
 const { DirectoryTree } = Tree;
 
@@ -18,9 +18,9 @@ const EditorLibrary = () => {
         res.push(
           {
             title: r.senotypejson.senotype.name,
-            key: r.senotypeid,
+            key: `${r.senotypeid}-parent`,
             children: [
-              { title: `Version 1 ${r.senotypeid}`, key: `${r.senotypeid}-leaf`, isLeaf: true },
+              { title: `Version 1 ${r.senotypeid}`, key: r.senotypeid, isLeaf: true },
             ]
           }
         )
@@ -36,13 +36,20 @@ const EditorLibrary = () => {
     console.log('Trigger Expand', keys, info);
   };
   return (
-    <div className='p-2 bg-white' style={{maxHeight: 500, overflowY: 'auto'}}>
+    <div className='p-2' style={{maxHeight: 500, overflowY: 'auto'}}>
       <h2 className='h4 mx-3 mb-3'>{ENVS.app.name} Library</h2>
-      <div><Button className=' w-75 mx-3 mb-5 mt-3'>New</Button></div>
+         <InputGroup  className="mb-3">
+         <Form.Control
+          aria-label="Search"
+          aria-describedby="inputGroup-sizing-sm"
+        />
+        <InputGroup.Text id="inputGroup-sizing-sm">Search</InputGroup.Text>
+        
+      </InputGroup>
       {loading && <Skeleton />}
       {libraryData && <DirectoryTree
         multiple
-        draggable
+        draggable={false}
         defaultExpandAll
         onSelect={onSelect}
         onExpand={onExpand}
